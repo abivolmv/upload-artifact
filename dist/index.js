@@ -1137,6 +1137,12 @@ function retry(name, operation, customErrorMessages, maxAttempts) {
             try {
                 response = yield operation();
                 statusCode = response.message.statusCode;
+		core.debug('=====helo====')
+		//core.debug(response)
+		core.debug(JSON.stringify(response, replacer(), '  ' ))
+		//core.debug(response.message)
+		core.debug(JSON.stringify(response.message, replacer(), '  '))
+		core.debug('=====bye====')
                 if (utils_1.isSuccessStatusCode(statusCode)) {
                     return response;
                 }
@@ -1151,12 +1157,7 @@ function retry(name, operation, customErrorMessages, maxAttempts) {
                 isRetryable = true;
                 errorMessage = error.message;
             }
-		core.debug('=====helo====')
-		//core.debug(response)
-		core.debug(JSON.stringify(response, replacer(), '  ' ))
-		//core.debug(response.message)
-		core.debug(JSON.stringify(response.message, replacer(), '  '))
-		core.debug('=====bye====')
+		
             if (!isRetryable) {
                 core.info(`${name} - Error is not retryable`);
                 if (response) {
