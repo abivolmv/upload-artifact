@@ -1156,9 +1156,10 @@ function retry(name, operation, customErrorMessages, maxAttempts) {
                 if (response) {
 			core.debug('=====helo====')
 			//core.debug(response)
-			core.debug(JSON.stringify(response))
+			core.debug(JSON.stringify(response, replacer(), '  ' ))
 			//core.debug(response.message)
 			core.debug(JSON.stringify(response.message))
+			core.debug('=====bye====')
                     utils_1.displayHttpDiagnostics(response);
                 }
                 break;
@@ -1177,6 +1178,26 @@ function retry(name, operation, customErrorMessages, maxAttempts) {
     });
 }
 exports.retry = retry;
+function replacer() {
+  var objects = [];
+
+  return function(key, value) {
+    if (typeof value === 'object' && value !== null) {
+      var found = objects.some(function(existing) {
+        return (existing === value);
+      });
+
+      if (found) {
+        return '[Circular: ' + key + ']';
+      }
+
+      objects.push(value);
+    }
+
+    return value;
+  };
+}
+exports.replacer = replacer;	
 function retryHttpClientRequest(name, method, customErrorMessages = new Map(), maxAttempts = config_variables_1.getRetryLimit()) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield retry(name, method, customErrorMessages, maxAttempts);
