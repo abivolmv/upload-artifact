@@ -1155,7 +1155,7 @@ function retry(name, operation, customErrorMessages, maxAttempts) {
                 core.info(`${name} - Error is not retryable`);
                 if (response) {
 			core.debug('=====helo====')
-			code.debug(response)
+			core.debug(response)
                     utils_1.displayHttpDiagnostics(response);
                 }
                 break;
