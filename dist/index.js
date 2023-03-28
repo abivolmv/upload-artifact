@@ -1156,6 +1156,9 @@ function retry(name, operation, customErrorMessages, maxAttempts) {
                 if (response) {
 			core.debug('=====helo====')
 			core.debug(response)
+			core.debug(JSON.stringify(response))
+			core.debug(response.message)
+			core.debug(JSON.stringify(response.message))
                     utils_1.displayHttpDiagnostics(response);
                 }
                 break;
