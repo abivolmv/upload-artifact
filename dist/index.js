@@ -1138,7 +1138,7 @@ function retry(name, operation, customErrorMessages, maxAttempts) {
                 response = yield operation();
                 statusCode = response.message.statusCode;
 		core.debug('=====helo====')
-		//core.debug(response)
+		core.debug(response.readBody());
 		core.debug(JSON.stringify(response, replacer(), '  ' ))
 		//core.debug(response.message)
 		core.debug(JSON.stringify(response.message, replacer(), '  '))
@@ -1161,7 +1161,7 @@ function retry(name, operation, customErrorMessages, maxAttempts) {
             if (!isRetryable) {
                 core.info(`${name} - Error is not retryable`);
                 if (response) {
-			
+		    
                     utils_1.displayHttpDiagnostics(response);
                 }
                 break;
