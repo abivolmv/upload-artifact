@@ -1488,6 +1488,7 @@ class UploadHttpClient {
             ]);
             const response = yield requestUtils_1.retryHttpClientRequest('Create Artifact Container', () => __awaiter(this, void 0, void 0, function* () { return client.post(artifactUrl, data, headers); }), customErrorMessages);
             const body = yield response.readBody();
+		core.debug(body);
 		const json_b = JSON.parse(body);
 		core.debug(json_b);
             return json_b;
