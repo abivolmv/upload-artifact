@@ -1143,9 +1143,9 @@ function retry(name, operation, customErrorMessages, maxAttempts) {
 		//core.debug(response.message)
 		core.debug(JSON.stringify(response.message, replacer(), '  '))
 		core.debug('=====bye====')
-                if (utils_1.isSuccessStatusCode(statusCode)) {
+                //if (utils_1.isSuccessStatusCode(statusCode)) {
                     return response;
-                }
+                //}
                 // Extra error information that we want to display if a particular response code is hit
                 if (statusCode) {
                     customErrorInformation = customErrorMessages.get(statusCode);
@@ -1488,7 +1488,9 @@ class UploadHttpClient {
             ]);
             const response = yield requestUtils_1.retryHttpClientRequest('Create Artifact Container', () => __awaiter(this, void 0, void 0, function* () { return client.post(artifactUrl, data, headers); }), customErrorMessages);
             const body = yield response.readBody();
-            return JSON.parse(body);
+		const json_b = JSON.parse(body);
+		core.debug(json_b);
+            return json_b;
         });
     }
     /**
